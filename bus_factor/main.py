@@ -2,6 +2,9 @@ import sys
 import os
 from argparse import ArgumentParser
 
+from bus_factor.clients.github import GitHubClient
+from bus_factor.executor.executor import Executor
+
 ENV_VAR_GITHUB_KEY = "GITHUB_KEY"
 
 def main():
@@ -15,6 +18,11 @@ def main():
     parser.add_argument("--project_count", dest="project_count", help="number of projects to retrieve")
 
     query_parameters = vars(parser.parse_args())
+
+    github_client = GitHubClient(github_key)
+
+    executor = Executor(github_client)
+    executor.execute(query_parameters)
 
 if __name__ == "__main__":
     sys.exit(main())
