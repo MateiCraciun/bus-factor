@@ -32,6 +32,8 @@ class GitHubClient:
                 self.GET_PROJECTS_ENDPOINT, 
                 self.format_project_params(params.copy(), page)
             )
+            if page == pages - 1 and project_count % self.PER_PAGE != 0:
+                partial["items"] = partial["items"][:project_count % self.PER_PAGE]
             for project in partial["items"]:
                 yield project
 
