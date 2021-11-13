@@ -25,9 +25,16 @@ class GitHubClient:
         queries = asyncio.gather(*[self._query_page(self.format_params(params.copy(), page)) for page in range(pages)])
         results = self.event_loop.run_until_complete(queries)
 
-        print(results)
-        print(len(results[0]["items"]))
-        print(results[0]["items"][0])
+        result_list = []
+        for partial in results:
+            result_list.extend(partial["items"])
+
+        if len(result_list) > project_count:
+            result_list = result_list[:project_count]
+        elif len(result_list) < project_count:
+            raise Exception("Insufficient projects for programming language {} found.".format(language))
+
+        return result_list
 
     async def _query_page(self, params):
         r = requests.get(

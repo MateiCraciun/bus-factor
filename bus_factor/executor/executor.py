@@ -7,11 +7,11 @@ class Executor:
 
     def execute(self, query_parameters):
         # retrieve and aggregate github pages
-        self.github_client.query(
+        projects = self.github_client.query(
             query_parameters["language"],
             int(query_parameters["project_count"])
         )
-
+        print(len(projects))
         # filter pages by criteria
 
         # print out results
