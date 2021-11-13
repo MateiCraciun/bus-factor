@@ -24,13 +24,8 @@ class Executor:
             )
         ]
 
-        contributor_queries = asyncio.gather(*[self.get_contributors(
-            project
-        ) for project in projects])
-        results = await contributor_queries
-
-        # print out results
-        for project in results:
+        for project in projects:
+            project = await self.get_contributors(project)
             top_contribution = project.high_bus_factor()
             if top_contribution:
                 print("project: {project} \t user: {user} \t percentage: {percentage}".format(
