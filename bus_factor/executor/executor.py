@@ -28,9 +28,9 @@ class Executor:
             project = await self.get_contributors(project)
             top_contribution = project.high_bus_factor()
             if top_contribution:
-                print("project: {project} \t user: {user} \t percentage: {percentage}".format(
-                    project=project.name,
-                    user=project.contributors[0].username,
+                print("project: {project} \t\t user: {user} \t\t percentage: {percentage:.2f}".format(
+                    project=project.name.ljust(30),
+                    user=project.contributors[0].username.ljust(30),
                     percentage=top_contribution
                 ))
         pass
