@@ -1,5 +1,6 @@
 from clients.github import GitHubClient
 
+from models.project import Project
 
 class Executor:
     def __init__(self, github_client: GitHubClient):
@@ -7,11 +8,20 @@ class Executor:
 
     def execute(self, query_parameters):
         # retrieve and aggregate github pages
-        projects = self.github_client.query(
-            query_parameters["language"],
-            int(query_parameters["project_count"])
+        projects = [Project(
+                project["name"],
+                project["owner"]["login"],
+                project["contributors_url"]
+            ) 
+            for project in self.github_client.get_projects(
+                query_parameters["language"],
+                int(query_parameters["project_count"])
+            )
+        ]
+        
+        contributors = self.github_client.get_contributors(
+            projects
         )
-        print(len(projects))
         # filter pages by criteria
 
         # print out results
