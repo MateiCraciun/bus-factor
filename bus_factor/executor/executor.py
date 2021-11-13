@@ -25,9 +25,16 @@ class Executor:
             project
         ) for project in projects])
         results = self.event_loop.run_until_complete(contributor_queries)
-        # filter projects by criteria
 
         # print out results
+        for project in results:
+            top_contribution = project.high_bus_factor()
+            if top_contribution:
+                print("project: {project} \t user: {user} \t percentage: {percentage}".format(
+                    project=project.name,
+                    user=project.contributors[0].username,
+                    percentage=top_contribution
+                ))
         pass
 
     async def get_contributors(self, project: Project):

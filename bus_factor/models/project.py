@@ -7,12 +7,24 @@ class Project:
         self.owner = owner
         self.contributor_url = contributor_url
 
-    def high_bus_factor(self, contributors):
-        top_contribution = sum([contributor.contribution for contributor in contributors[1:25]])
-        if contributors[0].contribution >= 3 * top_contribution:
-            return contributors[0]
+    def high_bus_factor(self):
+        max_contributors = len(self.contributors) if len(self.contributors) < 25 else 25
+
+        top_contribution = self.contributors[0].contributions
+        other_contribution = sum([contributor.contributions for contributor in self.contributors[1:max_contributors]])
+        contribution_percentage = top_contribution / (top_contribution + other_contribution)
+        if contribution_percentage >= 0.75:
+            return contribution_percentage
         else:
             return None
 
     def add_contributors(self, contributors):
-        self.contributors = contributors
+        self.contributors = [Contributor(
+            contributor["login"],
+            int(contributor["contributions"])
+        ) if "login" in contributor else Contributor(
+            "anonymous",
+            int(contributor["contributions"])
+        ) 
+            for contributor in contributors 
+        ]
