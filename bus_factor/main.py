@@ -2,8 +2,8 @@ import sys
 import os
 from argparse import ArgumentParser
 
-from bus_factor.clients.github import GitHubClient
-from bus_factor.executor.executor import Executor
+from clients.github import GitHubClient
+from executor.executor import Executor
 
 ENV_VAR_GITHUB_KEY = "GITHUB_KEY"
 
