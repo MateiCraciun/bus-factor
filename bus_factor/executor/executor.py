@@ -9,13 +9,16 @@ class Executor:
         self.github_client = github_client
 
     def execute(self, query_parameters):
+        self.event_loop.run_until_complete(self._execute(query_parameters))
+
+    async def _execute(self, query_parameters):
         # retrieve and aggregate github projects
         projects = [Project(
                 project["name"],
                 project["owner"]["login"],
                 project["contributors_url"]
             ) 
-            for project in self.github_client.get_projects(
+            async for project in self.github_client.get_projects(
                 query_parameters["language"],
                 int(query_parameters["project_count"])
             )
@@ -24,7 +27,7 @@ class Executor:
         contributor_queries = asyncio.gather(*[self.get_contributors(
             project
         ) for project in projects])
-        results = self.event_loop.run_until_complete(contributor_queries)
+        results = await contributor_queries
 
         # print out results
         for project in results:
