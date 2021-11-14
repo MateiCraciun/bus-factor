@@ -2,6 +2,7 @@ import sys
 import os
 from argparse import ArgumentParser
 
+from formatter.formatter import Formatter
 from clients.github import GitHubClient
 from executor.executor import Executor
 
@@ -20,8 +21,9 @@ def main():
     query_parameters = vars(parser.parse_args())
 
     github_client = GitHubClient(github_key)
+    formatter = Formatter()
 
-    executor = Executor(github_client)
+    executor = Executor(github_client, formatter)
     executor.execute(query_parameters)
 
 if __name__ == "__main__":
