@@ -1,12 +1,13 @@
 import asyncio
-
+from formatter.formatter import Formatter
 from clients.github import GitHubClient
 from models.project import Project
 
 class Executor:
-    def __init__(self, github_client: GitHubClient):
+    def __init__(self, github_client: GitHubClient, formatter: Formatter):
         self.event_loop = asyncio.get_event_loop()
         self.github_client = github_client
+        self.formatter = formatter
 
     def execute(self, query_parameters):
         self.event_loop.run_until_complete(self._execute(query_parameters))
@@ -28,11 +29,7 @@ class Executor:
             project = await self.get_contributors(project)
             top_contribution = project.high_bus_factor()
             if top_contribution:
-                print("project: {project} \t\t user: {user} \t\t percentage: {percentage:.2f}".format(
-                    project=project.name.ljust(30),
-                    user=project.contributors[0].username.ljust(30),
-                    percentage=top_contribution
-                ))
+                self.formatter.format(project, top_contribution)
         pass
 
     async def get_contributors(self, project: Project):
