@@ -37,7 +37,7 @@ class GitHubClient:
             for project in partial["items"]:
                 yield project
 
-    async def get_contributors(self, contributor_url: Project):
+    async def get_contributors(self, contributor_url: str):
         params = {
             "per_page" : self.CONTRIBUTOR_LIMIT,
             "anon": "true"
