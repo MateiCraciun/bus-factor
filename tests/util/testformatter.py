@@ -8,7 +8,7 @@ class TestFormatter:
         self.got[self._result_to_string(
             project.name,
             project.contributors[0].username,
-            top_contribution
+            "{:.2f}".format(top_contribution)
         )] = True
 
     def load_expected(self, expected):
@@ -24,6 +24,9 @@ class TestFormatter:
         return ".".join([project_name, user_name, str(contribution)])
     
     def evaluate(self):
+        print(self.expected)
+        print("    ")
+        print(self.got)
         for expected in self.expected:
             assert expected in self.got
 

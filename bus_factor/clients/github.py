@@ -33,6 +33,8 @@ class GitHubClient:
             if page == pages - 1 and project_count % self.PER_PAGE != 0:
                 partial["items"] = partial["items"][:project_count % self.PER_PAGE]
             for project in partial["items"]:
+                with open("testdata.txt", "a+") as f:
+                    f.write(str(project) + ",\n")
                 yield project
 
     async def get_contributors(self, contributor_url: str):

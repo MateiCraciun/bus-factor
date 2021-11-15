@@ -19,6 +19,8 @@ class Project:
             return None
 
     def add_contributors(self, contributors):
+        with open("contributors.txt", "a+") as f:
+            f.write(self.contributor_url + ": " + str(contributors) + ",\n")
         self.contributors = [Contributor(
             contributor["login"],
             int(contributor["contributions"])
