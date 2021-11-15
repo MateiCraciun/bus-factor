@@ -23,3 +23,9 @@ class TestFormatter:
     def _result_to_string(self, project_name, user_name, contribution):
         return ".".join([project_name, user_name, str(contribution)])
     
+    def evaluate(self):
+        for expected in self.expected:
+            assert expected in self.got
+
+        for got in self.got:
+            assert got in self.expected

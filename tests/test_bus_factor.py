@@ -20,6 +20,7 @@ def _execute_test_bus_factor(filename):
 
     executor = Executor(github_client, formatter)
     executor.execute(current_test_data.query_parameters)
+    formatter.evaluate()
 
 def test_bus_factor():
     _execute_test_bus_factor("data/test_basic_case_returns_data.json")
