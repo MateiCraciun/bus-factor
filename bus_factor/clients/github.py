@@ -54,4 +54,5 @@ class GitHubClient:
             },
             params=params
         )
+        r.raise_for_status()
         return r.json()
