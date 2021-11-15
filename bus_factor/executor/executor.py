@@ -1,7 +1,7 @@
 import asyncio
-from formatter.formatter import Formatter
-from clients.github import GitHubClient
-from models.project import Project
+from bus_factor.formatter.formatter import Formatter
+from bus_factor.clients.github import GitHubClient
+from bus_factor.models.project import Project
 
 class Executor:
     def __init__(self, github_client: GitHubClient, formatter: Formatter):

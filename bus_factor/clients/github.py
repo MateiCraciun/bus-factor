@@ -2,8 +2,6 @@ import requests
 import asyncio
 from urllib.parse import urljoin
 
-from models.project import Project
-
 class GitHubClient:
     BASE_URL = "https://api.github.com"
     PER_PAGE = 100

@@ -1,4 +1,4 @@
-from models.project import Project
+from bus_factor.models.project import Project
 
 class Formatter:
     def format(self, project: Project, top_contribution):

@@ -1,3 +1,23 @@
 {
-    
+    "query_parameters": {
+        "language": "python",
+        "project_count": "210"
+    },
+    "expected": [
+        {
+            "name": "",
+            "user": "",
+            "contribution": ""
+        }
+    ],
+    "client": {
+        "projects": [
+            {
+                
+            }
+        ],
+        "contributors": {
+
+        }
+    }
 }
